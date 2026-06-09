@@ -125,7 +125,7 @@ export function AddProductForm({ initialData }: AddProductFormProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="price">Price (&pound;)</Label>
+          <Label htmlFor="price">Price (&#8358;)</Label>
           <input
             id="price"
             name="price"

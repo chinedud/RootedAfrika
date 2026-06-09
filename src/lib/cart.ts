@@ -1,8 +1,8 @@
-/** Free standard delivery when subtotal meets this amount (GBP) */
-export const FREE_SHIPPING_THRESHOLD = 50;
+/** Free standard delivery when subtotal meets this amount (NGN) */
+export const FREE_SHIPPING_THRESHOLD = 50000;
 
-/** Standard delivery fee (GBP) */
-export const STANDARD_SHIPPING_COST = 4.99;
+/** Standard delivery fee (NGN) */
+export const STANDARD_SHIPPING_COST = 5000;
 
 export function getShippingCost(subtotal: number): number {
   if (subtotal <= 0) return 0;

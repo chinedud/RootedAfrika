@@ -38,7 +38,7 @@ export default function AdminSettingsPage() {
                 <Label htmlFor="currency">Currency</Label>
                 <input
                   id="currency"
-                  defaultValue="GBP (&pound;)"
+                  defaultValue="NGN (&#8358;)"
                   className="flex h-10 w-full rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-pink-400 focus:outline-none focus:ring-1 focus:ring-pink-400"
                 />
               </div>

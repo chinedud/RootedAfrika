@@ -212,7 +212,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
               <span className="font-medium text-brand-gold">
                 {formatPrice(FREE_SHIPPING_THRESHOLD)}
               </span>
-              . Standard delivery £4.99.
+              . Standard delivery &#8358;5,000.
             </p>
 
             {/* Trust */}

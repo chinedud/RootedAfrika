@@ -24,7 +24,7 @@ export function RevenueChart() {
   return (
     <div className="rounded-xl border border-white/10 bg-neutral-900 p-5">
       <h3 className="text-sm font-semibold text-white">Revenue Overview</h3>
-      <p className="text-xs text-white/50">Monthly revenue in GBP</p>
+      <p className="text-xs text-white/50">Monthly revenue in NGN</p>
       <div className="mt-4 h-72">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data}>
