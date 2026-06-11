@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { ProductsPageSkeleton } from "@/components/products/ProductsPageSkeleton";
 import { getProducts } from "@/actions/products";
 import { ProductsPageContent } from "./ProductsPageContent";
+import { slugify } from "@/lib/slugify";
 import type { Product, ProductCategory } from "@/types";
 
 export const metadata = {
@@ -14,7 +15,7 @@ export default async function ProductsPage() {
   const products: Product[] = dbProducts.map((p) => ({
     id: p.id,
     name: p.name,
-    slug: p.name.toLowerCase().replace(/\s+/g, "-"),
+    slug: slugify(p.name),
     price: p.price,
     category: (p.category as ProductCategory) || "fruits",
     description: p.description || "",

@@ -2,14 +2,11 @@ import { notFound } from "next/navigation";
 import { ProductDetail } from "./ProductDetail";
 import { RelatedProducts } from "@/components/products/RelatedProducts";
 import { getProducts } from "@/actions/products";
+import { slugify } from "@/lib/slugify";
 import { CATEGORY_LABELS, type Product, type ProductCategory } from "@/types";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
-}
-
-function slugify(name: string) {
-  return name.toLowerCase().replace(/\s+/g, "-");
 }
 
 interface DBProduct {

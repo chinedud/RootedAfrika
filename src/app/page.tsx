@@ -1,6 +1,7 @@
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { HeroBanner } from "@/components/home/HeroBanner";
 import { getProducts } from "@/actions/products";
+import { slugify } from "@/lib/slugify";
 import type { Product, ProductCategory } from "@/types";
 import Link from "next/link";
 
@@ -9,7 +10,7 @@ export default async function HomePage() {
   const products: Product[] = (dbProducts ?? []).map((p) => ({
     id: p.id,
     name: p.name,
-    slug: p.name.toLowerCase().replace(/\s+/g, "-"),
+    slug: slugify(p.name),
     price: p.price,
     category: (p.category as ProductCategory) || "fruits",
     description: p.description || "",
