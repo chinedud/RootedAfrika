@@ -1,92 +1,71 @@
-import {
-  Html,
-  Body,
-  Container,
-  Section,
-  Heading,
-  Text,
-  Link,
-  Button,
-  Hr,
-} from "@react-email/components";
-
 interface WelcomeEmailProps {
   name: string;
   email: string;
 }
 
 export const WelcomeEmail = ({ name, email }: WelcomeEmailProps) => (
-  <Html>
-    <Body style={bodyStyle}>
-      <Container style={containerStyle}>
-        <Section style={headerStyle}>
-          <Heading style={logoStyle}>ROOTED AFRIKA</Heading>
-          <Text style={taglineStyle}>Premium African & Caribbean Produce</Text>
-        </Section>
+  <div style={rootStyle}>
+    <div style={cardStyle}>
+      <div style={headerStyle}>
+        <h1 style={logoStyle}>ROOTED AFRIKA</h1>
+        <p style={taglineStyle}>Premium African & Caribbean Produce</p>
+      </div>
 
-        <Section style={contentStyle}>
-          <Heading style={h1Style}>Welcome to the Family, {name}!</Heading>
+      <div style={bodyStyle}>
+        <h2 style={h2Style}>Welcome to the Family, {name}!</h2>
 
-          <Text style={pStyle}>
-            Thank you for creating an account with Rooted Afrika. You now have
-            access to premium African and Caribbean staples sourced directly
-            from trusted growers across West Africa, East Africa, and the
-            Caribbean diaspora.
-          </Text>
+        <p style={pStyle}>
+          Thank you for creating an account with Rooted Afrika. You now have
+          access to premium African and Caribbean staples sourced directly from
+          trusted growers across West Africa, East Africa, and the Caribbean
+          diaspora.
+        </p>
 
-          <Text style={pStyle}>
-            From farm-fresh yams and plantains to our signature suya spice
-            blends — every product is hand-selected for quality and
-            authenticity.
-          </Text>
+        <p style={pStyle}>
+          From farm-fresh yams and plantains to our signature suya spice blends
+          — every product is hand-selected for quality and authenticity.
+        </p>
 
-          <Section style={ctaSectionStyle}>
-            <Button href="https://rootedafrika.com/products" style={buttonStyle}>
-              Start Shopping
-            </Button>
-          </Section>
+        <div style={ctaWrapStyle}>
+          <a href="https://rootedafrika.com/products" style={buttonStyle}>
+            Start Shopping
+          </a>
+        </div>
 
-          <Hr style={hrStyle} />
+        <hr style={hrStyle} />
 
-          <Text style={pStyle}>
-            Got questions? We are here to help. Just reply to this email or
-            visit our{" "}
-            <Link href="https://rootedafrika.com/contact" style={linkStyle}>
-              contact page
-            </Link>
-            .
-          </Text>
-        </Section>
+        <p style={pStyle}>
+          Got questions? We are here to help. Just reply to this email or visit
+          our{" "}
+          <a href="https://rootedafrika.com/contact" style={linkStyle}>
+            contact page
+          </a>
+          .
+        </p>
+      </div>
 
-        <Section style={footerStyle}>
-          <Text style={footerTextStyle}>
-            © {new Date().getFullYear()} Rooted Afrika. All rights reserved.
-          </Text>
-          <Text style={footerTextStyle}>
-            This email was sent to {email}. You received this because you
-            created an account on rootedafrika.com.
-          </Text>
-        </Section>
-      </Container>
-    </Body>
-  </Html>
+      <div style={footerStyle}>
+        <p style={footerTextStyle}>
+          &copy; {new Date().getFullYear()} Rooted Afrika. All rights reserved.
+        </p>
+        <p style={footerTextStyle}>
+          This email was sent to {email}. You received this because you created
+          an account on rootedafrika.com.
+        </p>
+      </div>
+    </div>
+  </div>
 );
 
-WelcomeEmail.PreviewProps = {
-  name: "Chinedu",
-  email: "customer@rooted-afrika.com",
-};
-
-const bodyStyle = {
+const rootStyle = {
   backgroundColor: "#0a0a0a",
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   margin: 0,
-  padding: 0,
+  padding: "32px 16px",
 };
 
-const containerStyle = {
-  maxWidth: "600px",
+const cardStyle = {
+  maxWidth: "560px",
   margin: "0 auto",
   backgroundColor: "#ffffff",
   borderRadius: "8px",
@@ -115,11 +94,11 @@ const taglineStyle = {
   textTransform: "uppercase" as const,
 };
 
-const contentStyle = {
+const bodyStyle = {
   padding: "40px 32px",
 };
 
-const h1Style = {
+const h2Style = {
   fontSize: "22px",
   fontWeight: "700",
   color: "#171717",
@@ -133,12 +112,13 @@ const pStyle = {
   margin: "0 0 12px 0",
 };
 
-const ctaSectionStyle = {
+const ctaWrapStyle = {
   textAlign: "center" as const,
   padding: "24px 0",
 };
 
 const buttonStyle = {
+  display: "inline-block",
   backgroundColor: "#ec4899",
   color: "#ffffff",
   fontSize: "15px",
@@ -146,11 +126,11 @@ const buttonStyle = {
   padding: "12px 32px",
   borderRadius: "6px",
   textDecoration: "none",
-  display: "inline-block",
 };
 
 const hrStyle = {
-  borderColor: "#e5e5e5",
+  border: "none",
+  borderTop: "1px solid #e5e5e5",
   margin: "24px 0",
 };
 

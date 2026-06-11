@@ -1,15 +1,3 @@
-import {
-  Html,
-  Body,
-  Container,
-  Section,
-  Heading,
-  Text,
-  Link,
-  Button,
-  Hr,
-} from "@react-email/components";
-
 interface PasswordResetProps {
   name: string;
   email: string;
@@ -21,75 +9,66 @@ export const PasswordReset = ({
   email,
   resetLink,
 }: PasswordResetProps) => (
-  <Html>
-    <Body style={bodyStyle}>
-      <Container style={containerStyle}>
-        <Section style={headerStyle}>
-          <Heading style={logoStyle}>ROOTED AFRIKA</Heading>
-        </Section>
+  <div style={rootStyle}>
+    <div style={cardStyle}>
+      <div style={headerStyle}>
+        <h1 style={logoStyle}>ROOTED AFRIKA</h1>
+      </div>
 
-        <Section style={contentStyle}>
-          <Heading style={h1Style}>Reset your password</Heading>
+      <div style={bodyStyle}>
+        <h2 style={h2Style}>Reset your password</h2>
 
-          <Text style={pStyle}>Hi {name},</Text>
-          <Text style={pStyle}>
-            We received a request to reset the password for your Rooted Afrika
-            account. Click the button below to create a new password. This link
-            expires in 1 hour.
-          </Text>
+        <p style={pStyle}>Hi {name},</p>
+        <p style={pStyle}>
+          We received a request to reset the password for your Rooted Afrika
+          account. Click the button below to create a new password. This link
+          expires in 1 hour.
+        </p>
 
-          <Section style={ctaSectionStyle}>
-            <Button href={resetLink} style={buttonStyle}>
-              Reset Password
-            </Button>
-          </Section>
+        <div style={ctaWrapStyle}>
+          <a href={resetLink} style={buttonStyle}>
+            Reset Password
+          </a>
+        </div>
 
-          <Text style={pStyle}>
-            If you did not request a password reset, you can safely ignore this
-            email. Your account remains secure.
-          </Text>
+        <p style={pStyle}>
+          If you did not request a password reset, you can safely ignore this
+          email. Your account remains secure.
+        </p>
 
-          <Hr style={hrStyle} />
+        <hr style={hrStyle} />
 
-          <Text style={fallbackStyle}>
-            If the button above does not work, copy and paste this link into
-            your browser:
-          </Text>
-          <Link href={resetLink} style={linkStyle}>
-            {resetLink}
-          </Link>
-        </Section>
+        <p style={fallbackStyle}>
+          If the button above does not work, copy and paste this link into your
+          browser:
+        </p>
+        <a href={resetLink} style={linkStyle}>
+          {resetLink}
+        </a>
+      </div>
 
-        <Section style={footerStyle}>
-          <Text style={footerTextStyle}>
-            © {new Date().getFullYear()} Rooted Afrika. All rights reserved.
-          </Text>
-          <Text style={footerTextStyle}>
-            This email was sent to {email} in response to a password reset
-            request.
-          </Text>
-        </Section>
-      </Container>
-    </Body>
-  </Html>
+      <div style={footerStyle}>
+        <p style={footerTextStyle}>
+          &copy; {new Date().getFullYear()} Rooted Afrika. All rights reserved.
+        </p>
+        <p style={footerTextStyle}>
+          This email was sent to {email} in response to a password reset
+          request.
+        </p>
+      </div>
+    </div>
+  </div>
 );
 
-PasswordReset.PreviewProps = {
-  name: "Chinedu",
-  email: "customer@rooted-afrika.com",
-  resetLink: "https://rootedafrika.com/reset-password?token=abc123",
-};
-
-const bodyStyle = {
+const rootStyle = {
   backgroundColor: "#0a0a0a",
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   margin: 0,
-  padding: 0,
+  padding: "32px 16px",
 };
 
-const containerStyle = {
-  maxWidth: "600px",
+const cardStyle = {
+  maxWidth: "560px",
   margin: "0 auto",
   backgroundColor: "#ffffff",
   borderRadius: "8px",
@@ -110,11 +89,11 @@ const logoStyle = {
   margin: 0,
 };
 
-const contentStyle = {
+const bodyStyle = {
   padding: "40px 32px",
 };
 
-const h1Style = {
+const h2Style = {
   fontSize: "22px",
   fontWeight: "700",
   color: "#171717",
@@ -128,12 +107,13 @@ const pStyle = {
   margin: "0 0 12px 0",
 };
 
-const ctaSectionStyle = {
+const ctaWrapStyle = {
   textAlign: "center" as const,
   padding: "24px 0",
 };
 
 const buttonStyle = {
+  display: "inline-block",
   backgroundColor: "#ec4899",
   color: "#ffffff",
   fontSize: "15px",
@@ -141,19 +121,12 @@ const buttonStyle = {
   padding: "12px 32px",
   borderRadius: "6px",
   textDecoration: "none",
-  display: "inline-block",
 };
 
 const hrStyle = {
-  borderColor: "#e5e5e5",
+  border: "none",
+  borderTop: "1px solid #e5e5e5",
   margin: "24px 0",
-};
-
-const fallbackStyle = {
-  fontSize: "13px",
-  color: "#a3a3a3",
-  margin: "0 0 4px 0",
-  lineHeight: "1.5",
 };
 
 const linkStyle = {
@@ -161,6 +134,13 @@ const linkStyle = {
   fontSize: "13px",
   wordBreak: "break-all" as const,
   textDecoration: "underline",
+};
+
+const fallbackStyle = {
+  fontSize: "13px",
+  color: "#a3a3a3",
+  margin: "0 0 4px 0",
+  lineHeight: "1.5",
 };
 
 const footerStyle = {

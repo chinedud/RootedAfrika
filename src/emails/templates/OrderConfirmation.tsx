@@ -1,14 +1,8 @@
-import {
-  Html,
-  Body,
-  Container,
-  Section,
-  Heading,
-  Text,
-  Link,
-  Button,
-  Hr,
-} from "@react-email/components";
+const formatPrice = (amount: number) =>
+  new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+  }).format(amount);
 
 interface OrderItem {
   name: string;
@@ -26,19 +20,6 @@ interface OrderConfirmationProps {
   estimatedDelivery: string;
 }
 
-const formatPrice = (amount: number) =>
-  new Intl.NumberFormat("en-NG", {
-    style: "currency",
-    currency: "NGN",
-  }).format(amount);
-
-const itemRow = (item: OrderItem) => `
-  <tr>
-    <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; color: #525252; font-size: 14px;">${item.name}</td>
-    <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; color: #525252; font-size: 14px; text-align: center;">${item.quantity}</td>
-    <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; color: #525252; font-size: 14px; text-align: right;">${formatPrice(item.unit_price)}</td>
-  </tr>`;
-
 export const OrderConfirmation = ({
   name,
   email,
@@ -48,108 +29,91 @@ export const OrderConfirmation = ({
   shippingAddress,
   estimatedDelivery,
 }: OrderConfirmationProps) => (
-  <Html>
-    <Body style={bodyStyle}>
-      <Container style={containerStyle}>
-        <Section style={headerStyle}>
-          <Heading style={logoStyle}>ROOTED AFRIKA</Heading>
-          <Text style={orderBadgeStyle}>Order Confirmed</Text>
-        </Section>
+  <div style={rootStyle}>
+    <div style={cardStyle}>
+      <div style={headerStyle}>
+        <h1 style={logoStyle}>ROOTED AFRIKA</h1>
+        <span style={badgeStyle}>Order Confirmed</span>
+      </div>
 
-        <Section style={contentStyle}>
-          <Text style={greetingStyle}>Thank you, {name}!</Text>
-          <Text style={pStyle}>
-            Your order has been placed and is being prepared. We will notify you
-            when it ships.
-          </Text>
+      <div style={bodyStyle}>
+        <p style={greetingStyle}>Thank you, {name}!</p>
+        <p style={pStyle}>
+          Your order has been placed and is being prepared. We will notify you
+          when it ships.
+        </p>
 
-          <Section style={orderIdSectionStyle}>
-            <Text style={orderIdLabelStyle}>Order Reference</Text>
-            <Text style={orderIdValueStyle}>{orderId}</Text>
-          </Section>
+        <div style={orderIdBoxStyle}>
+          <p style={labelStyle}>Order Reference</p>
+          <p style={orderIdStyle}>{orderId}</p>
+        </div>
 
-          <Hr style={hrStyle} />
+        <hr style={hrStyle} />
 
-          <Heading style={h2Style}>Order Summary</Heading>
+        <h3 style={h3Style}>Order Summary</h3>
 
-          <table style={tableStyle}>
-            <thead>
-              <tr>
-                <th style={thStyle}>Item</th>
-                <th style={{ ...thStyle, textAlign: "center" }}>Qty</th>
-                <th style={{ ...thStyle, textAlign: "right" }}>Price</th>
+        <table style={tableStyle}>
+          <thead>
+            <tr>
+              <th style={thLeftStyle}>Item</th>
+              <th style={thCenterStyle}>Qty</th>
+              <th style={thRightStyle}>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item, i) => (
+              <tr key={i}>
+                <td style={tdStyle}>{item.name}</td>
+                <td style={{ ...tdStyle, textAlign: "center" as const }}>{item.quantity}</td>
+                <td style={{ ...tdStyle, textAlign: "right" as const }}>
+                  {formatPrice(item.unit_price)}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {items.map((item, i) => (
-                <tr key={i}>
-                  <td style={tdStyle}>{item.name}</td>
-                  <td style={{ ...tdStyle, textAlign: "center" }}>{item.quantity}</td>
-                  <td style={{ ...tdStyle, textAlign: "right" }}>
-                    {formatPrice(item.unit_price)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            ))}
+          </tbody>
+        </table>
 
-          <Section style={totalSectionStyle}>
-            <Text style={totalLabelStyle}>Total</Text>
-            <Text style={totalValueStyle}>{formatPrice(totalAmount)}</Text>
-          </Section>
+        <div style={totalRowStyle}>
+          <span style={totalLabelStyle}>Total</span>
+          <span style={totalValueStyle}>{formatPrice(totalAmount)}</span>
+        </div>
 
-          <Hr style={hrStyle} />
+        <hr style={hrStyle} />
 
-          <Heading style={h2Style}>Delivery Details</Heading>
-          <Text style={pStyle}>{shippingAddress}</Text>
-          <Text style={pStyle}>
-            Estimated delivery: <strong>{estimatedDelivery}</strong>
-          </Text>
+        <h3 style={h3Style}>Delivery Details</h3>
+        <p style={pStyle}>{shippingAddress}</p>
+        <p style={pStyle}>
+          Estimated delivery: <strong>{estimatedDelivery}</strong>
+        </p>
 
-          <Section style={ctaSectionStyle}>
-            <Button href={`https://rootedafrika.com/account`} style={buttonStyle}>
-              View Order
-            </Button>
-          </Section>
-        </Section>
+        <div style={ctaWrapStyle}>
+          <a href="https://rootedafrika.com/account" style={buttonStyle}>
+            View Order
+          </a>
+        </div>
+      </div>
 
-        <Section style={footerStyle}>
-          <Text style={footerTextStyle}>
-            © {new Date().getFullYear()} Rooted Afrika. All rights reserved.
-          </Text>
-          <Text style={footerTextStyle}>
-            This email was sent to {email} for order {orderId}.
-          </Text>
-        </Section>
-      </Container>
-    </Body>
-  </Html>
+      <div style={footerStyle}>
+        <p style={footerTextStyle}>
+          &copy; {new Date().getFullYear()} Rooted Afrika. All rights reserved.
+        </p>
+        <p style={footerTextStyle}>
+          This email was sent to {email} for order {orderId}.
+        </p>
+      </div>
+    </div>
+  </div>
 );
 
-OrderConfirmation.PreviewProps = {
-  name: "Chinedu",
-  email: "customer@rooted-afrika.com",
-  orderId: "AFM-GH8XK2M1",
-  items: [
-    { name: "Premium Ijebu Garri", quantity: 2, unit_price: 3500 },
-    { name: "Suya Spice Blend", quantity: 1, unit_price: 2500 },
-    { name: "Yam Flour (Amala)", quantity: 1, unit_price: 4000 },
-  ],
-  totalAmount: 13500,
-  shippingAddress: "42 Heritage Street, Lagos, Nigeria",
-  estimatedDelivery: "3-5 business days",
-};
-
-const bodyStyle = {
+const rootStyle = {
   backgroundColor: "#0a0a0a",
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   margin: 0,
-  padding: 0,
+  padding: "32px 16px",
 };
 
-const containerStyle = {
-  maxWidth: "600px",
+const cardStyle = {
+  maxWidth: "560px",
   margin: "0 auto",
   backgroundColor: "#ffffff",
   borderRadius: "8px",
@@ -170,7 +134,7 @@ const logoStyle = {
   margin: "0 0 8px 0",
 };
 
-const orderBadgeStyle = {
+const badgeStyle = {
   display: "inline-block",
   backgroundColor: "#ec4899",
   color: "#ffffff",
@@ -182,7 +146,7 @@ const orderBadgeStyle = {
   textTransform: "uppercase" as const,
 };
 
-const contentStyle = {
+const bodyStyle = {
   padding: "40px 32px",
 };
 
@@ -200,7 +164,7 @@ const pStyle = {
   margin: "0 0 12px 0",
 };
 
-const orderIdSectionStyle = {
+const orderIdBoxStyle = {
   backgroundColor: "#fafafa",
   border: "1px solid #e5e5e5",
   borderRadius: "6px",
@@ -209,7 +173,7 @@ const orderIdSectionStyle = {
   textAlign: "center" as const,
 };
 
-const orderIdLabelStyle = {
+const labelStyle = {
   fontSize: "11px",
   letterSpacing: "2px",
   textTransform: "uppercase" as const,
@@ -217,7 +181,7 @@ const orderIdLabelStyle = {
   margin: 0,
 };
 
-const orderIdValueStyle = {
+const orderIdStyle = {
   fontSize: "16px",
   fontWeight: "700",
   color: "#ec4899",
@@ -226,11 +190,12 @@ const orderIdValueStyle = {
 };
 
 const hrStyle = {
-  borderColor: "#e5e5e5",
+  border: "none",
+  borderTop: "1px solid #e5e5e5",
   margin: "24px 0",
 };
 
-const h2Style = {
+const h3Style = {
   fontSize: "16px",
   fontWeight: "700",
   color: "#171717",
@@ -242,7 +207,7 @@ const tableStyle = {
   borderCollapse: "collapse" as const,
 };
 
-const thStyle = {
+const thLeftStyle = {
   padding: "8px 0",
   borderBottom: "2px solid #171717",
   fontSize: "12px",
@@ -253,6 +218,28 @@ const thStyle = {
   textAlign: "left" as const,
 };
 
+const thCenterStyle = {
+  padding: "8px 0",
+  borderBottom: "2px solid #171717",
+  fontSize: "12px",
+  fontWeight: "600",
+  letterSpacing: "1px",
+  textTransform: "uppercase" as const,
+  color: "#737373",
+  textAlign: "center" as const,
+};
+
+const thRightStyle = {
+  padding: "8px 0",
+  borderBottom: "2px solid #171717",
+  fontSize: "12px",
+  fontWeight: "600",
+  letterSpacing: "1px",
+  textTransform: "uppercase" as const,
+  color: "#737373",
+  textAlign: "right" as const,
+};
+
 const tdStyle = {
   padding: "10px 0",
   borderBottom: "1px solid #e5e5e5",
@@ -260,7 +247,7 @@ const tdStyle = {
   fontSize: "14px",
 };
 
-const totalSectionStyle = {
+const totalRowStyle = {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
@@ -271,22 +258,21 @@ const totalLabelStyle = {
   fontSize: "16px",
   fontWeight: "700",
   color: "#171717",
-  margin: 0,
 };
 
 const totalValueStyle = {
   fontSize: "18px",
   fontWeight: "700",
   color: "#ec4899",
-  margin: 0,
 };
 
-const ctaSectionStyle = {
+const ctaWrapStyle = {
   textAlign: "center" as const,
   padding: "24px 0 0 0",
 };
 
 const buttonStyle = {
+  display: "inline-block",
   backgroundColor: "#ec4899",
   color: "#ffffff",
   fontSize: "15px",
@@ -294,7 +280,6 @@ const buttonStyle = {
   padding: "12px 32px",
   borderRadius: "6px",
   textDecoration: "none",
-  display: "inline-block",
 };
 
 const footerStyle = {

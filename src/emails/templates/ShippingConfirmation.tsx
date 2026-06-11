@@ -1,15 +1,3 @@
-import {
-  Html,
-  Body,
-  Container,
-  Section,
-  Heading,
-  Text,
-  Link,
-  Button,
-  Hr,
-} from "@react-email/components";
-
 interface ShippingConfirmationProps {
   name: string;
   email: string;
@@ -25,88 +13,70 @@ export const ShippingConfirmation = ({
   trackingNumber,
   carrier,
 }: ShippingConfirmationProps) => (
-  <Html>
-    <Body style={bodyStyle}>
-      <Container style={containerStyle}>
-        <Section style={headerStyle}>
-          <Heading style={logoStyle}>ROOTED AFRIKA</Heading>
-          <Text style={badgeStyle}>On Its Way!</Text>
-        </Section>
+  <div style={rootStyle}>
+    <div style={cardStyle}>
+      <div style={headerStyle}>
+        <h1 style={logoStyle}>ROOTED AFRIKA</h1>
+        <span style={badgeStyle}>On Its Way!</span>
+      </div>
 
-        <Section style={contentStyle}>
-          <Text style={greetingStyle}>Hi {name},</Text>
-          <Text style={pStyle}>
-            Great news — your order is on the move! Here is everything you need
-            to track it.
-          </Text>
+      <div style={bodyStyle}>
+        <p style={greetingStyle}>Hi {name},</p>
+        <p style={pStyle}>
+          Great news — your order is on the move! Here is everything you need
+          to track it.
+        </p>
 
-          <Section style={orderIdSectionStyle}>
-            <Text style={orderIdLabelStyle}>Order Reference</Text>
-            <Text style={orderIdValueStyle}>{orderId}</Text>
-          </Section>
+        <div style={infoBoxStyle}>
+          <p style={labelStyle}>Order Reference</p>
+          <p style={codeStyle}>{orderId}</p>
+        </div>
 
-          {trackingNumber && (
-            <Section style={trackingSectionStyle}>
-              <Text style={trackingLabelStyle}>
-                {carrier ? `${carrier} Tracking` : "Tracking Number"}
-              </Text>
-              <Text style={trackingValueStyle}>{trackingNumber}</Text>
-            </Section>
-          )}
+        {trackingNumber && (
+          <div style={trackingBoxStyle}>
+            <p style={labelStyle}>
+              {carrier ? `${carrier} Tracking` : "Tracking Number"}
+            </p>
+            <p style={trackingValueStyle}>{trackingNumber}</p>
+          </div>
+        )}
 
-          <Section style={ctaSectionStyle}>
-            <Button
-              href={
-                trackingNumber
-                  ? `https://rootedafrika.com/account`
-                  : `https://rootedafrika.com/account`
-              }
-              style={buttonStyle}
-            >
-              Track Your Order
-            </Button>
-          </Section>
+        <div style={ctaWrapStyle}>
+          <a href="https://rootedafrika.com/account" style={buttonStyle}>
+            Track Your Order
+          </a>
+        </div>
 
-          <Hr style={hrStyle} />
+        <hr style={hrStyle} />
 
-          <Text style={pStyle}>
-            Your fresh produce and pantry staples are carefully packed and on
-            their way to your kitchen. We will send you another update once
-            your order arrives at its destination.
-          </Text>
-        </Section>
+        <p style={pStyle}>
+          Your fresh produce and pantry staples are carefully packed and on
+          their way to your kitchen. We will send you another update once your
+          order arrives at its destination.
+        </p>
+      </div>
 
-        <Section style={footerStyle}>
-          <Text style={footerTextStyle}>
-            © {new Date().getFullYear()} Rooted Afrika. All rights reserved.
-          </Text>
-          <Text style={footerTextStyle}>
-            This email was sent to {email} for order {orderId}.
-          </Text>
-        </Section>
-      </Container>
-    </Body>
-  </Html>
+      <div style={footerStyle}>
+        <p style={footerTextStyle}>
+          &copy; {new Date().getFullYear()} Rooted Afrika. All rights reserved.
+        </p>
+        <p style={footerTextStyle}>
+          This email was sent to {email} for order {orderId}.
+        </p>
+      </div>
+    </div>
+  </div>
 );
 
-ShippingConfirmation.PreviewProps = {
-  name: "Chinedu",
-  email: "customer@rooted-afrika.com",
-  orderId: "AFM-GH8XK2M1",
-  trackingNumber: "RA-1Z999AA10123456784",
-  carrier: "DHL",
-};
-
-const bodyStyle = {
+const rootStyle = {
   backgroundColor: "#0a0a0a",
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   margin: 0,
-  padding: 0,
+  padding: "32px 16px",
 };
 
-const containerStyle = {
-  maxWidth: "600px",
+const cardStyle = {
+  maxWidth: "560px",
   margin: "0 auto",
   backgroundColor: "#ffffff",
   borderRadius: "8px",
@@ -139,7 +109,7 @@ const badgeStyle = {
   textTransform: "uppercase" as const,
 };
 
-const contentStyle = {
+const bodyStyle = {
   padding: "40px 32px",
 };
 
@@ -157,7 +127,7 @@ const pStyle = {
   margin: "0 0 12px 0",
 };
 
-const orderIdSectionStyle = {
+const infoBoxStyle = {
   backgroundColor: "#fafafa",
   border: "1px solid #e5e5e5",
   borderRadius: "6px",
@@ -166,7 +136,7 @@ const orderIdSectionStyle = {
   textAlign: "center" as const,
 };
 
-const orderIdLabelStyle = {
+const labelStyle = {
   fontSize: "11px",
   letterSpacing: "2px",
   textTransform: "uppercase" as const,
@@ -174,7 +144,7 @@ const orderIdLabelStyle = {
   margin: 0,
 };
 
-const orderIdValueStyle = {
+const codeStyle = {
   fontSize: "16px",
   fontWeight: "700",
   color: "#ec4899",
@@ -182,21 +152,13 @@ const orderIdValueStyle = {
   margin: "4px 0 0 0",
 };
 
-const trackingSectionStyle = {
+const trackingBoxStyle = {
   backgroundColor: "#fff1f7",
   border: "1px solid #fbcfe8",
   borderRadius: "6px",
   padding: "16px",
   margin: "16px 0",
   textAlign: "center" as const,
-};
-
-const trackingLabelStyle = {
-  fontSize: "11px",
-  letterSpacing: "2px",
-  textTransform: "uppercase" as const,
-  color: "#a3a3a3",
-  margin: 0,
 };
 
 const trackingValueStyle = {
@@ -208,12 +170,13 @@ const trackingValueStyle = {
   margin: "4px 0 0 0",
 };
 
-const ctaSectionStyle = {
+const ctaWrapStyle = {
   textAlign: "center" as const,
   padding: "24px 0 0 0",
 };
 
 const buttonStyle = {
+  display: "inline-block",
   backgroundColor: "#ec4899",
   color: "#ffffff",
   fontSize: "15px",
@@ -221,11 +184,11 @@ const buttonStyle = {
   padding: "12px 32px",
   borderRadius: "6px",
   textDecoration: "none",
-  display: "inline-block",
 };
 
 const hrStyle = {
-  borderColor: "#e5e5e5",
+  border: "none",
+  borderTop: "1px solid #e5e5e5",
   margin: "24px 0",
 };
 
